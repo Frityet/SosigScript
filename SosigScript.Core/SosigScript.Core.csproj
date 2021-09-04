@@ -23,10 +23,6 @@
     <None Remove="thunderstore/**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SosigScript.Common\SosigScript.Common.csproj" />
-  </ItemGroup>
-
   <!-- Thank you MSBuild for not having a builtin task to get the nth item of an array -->
   <UsingTask TaskName="GetNthItem" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
