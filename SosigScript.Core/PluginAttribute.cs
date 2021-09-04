@@ -9,7 +9,7 @@ using BepInEx;
 namespace SosigScript
 {
 	[BepInPlugin(GUID, NAME, VERSION)]
-	public sealed partial class SosigScript
+	public sealed partial class Plugin
 	{
         /// <summary>
 		///     The GUID of this BepInEx plugin
@@ -29,6 +29,6 @@ namespace SosigScript
         /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		private const string VERSION = "..";
+		private const string VERSION = "0.0.0";
 	}
 }

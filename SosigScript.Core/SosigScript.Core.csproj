@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net35</TargetFramework>
-    <LangVersion>9</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
@@ -21,6 +21,10 @@
 
   <ItemGroup>
     <None Remove="thunderstore/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SosigScript.Common\SosigScript.Common.csproj" />
   </ItemGroup>
 
   <!-- Thank you MSBuild for not having a builtin task to get the nth item of an array -->
@@ -72,7 +76,7 @@
   </Target>
 
   <Target Name="GenerateAttribute" AfterTargets="ReadManifest">
-    <Exec Command="dotnet t4 'PluginAttribute.tt' -p=Author=$(_ManifestAuthor) -p=Name=$(_ManifestName) -p=Version=$(_ManifestVersion)" />
+    <Exec Command="dotnet t4 'PluginAttribute.tt' -p=AUTHOR=$(_ManifestAuthor) -p=NAME=$(_ManifestName) -p=VERSION=$(_ManifestVersion)" />
   </Target>
 
   <Target Name="GenerateManifest" AfterTargets="ReadManifest" Condition="'$(Configuration)' == 'Release' and '$(TargetFramework)' == 'NET35'">

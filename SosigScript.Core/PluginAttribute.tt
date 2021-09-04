@@ -14,7 +14,7 @@ using BepInEx;
 namespace SosigScript
 {
 	[BepInPlugin(GUID, NAME, VERSION)]
-	public sealed partial class SosigScript
+	public sealed partial class Plugin
 	{
         /// <summary>
 		///     The GUID of this BepInEx plugin
