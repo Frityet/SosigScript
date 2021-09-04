@@ -1,8 +1,8 @@
 <#@ template language="C#" hostspecific="true" #>
 <#@ output extension=".cs" #>
-<#@ parameter name="Author" type="System.String" #>
-<#@ parameter name="Name" type="System.String" #>
-<#@ parameter name="Version" type="System.String" #>
+<#@ parameter name="AUTHOR" type="System.String" #>
+<#@ parameter name="NAME" type="System.String" #>
+<#@ parameter name="VERSION" type="System.String" #>
 // ------------------------------------------------------------
 // This C# file was generated from a T4 template file.
 // Edits to this file will be overwritten by subsequent builds.
@@ -11,29 +11,29 @@
 
 using BepInEx;
 
-namespace BlankInEx
+namespace SosigScript
 {
-	[BepInPlugin(GUID, Name, Version)]
-	public sealed partial class Plugin
+	[BepInPlugin(GUID, NAME, VERSION)]
+	public sealed partial class SosigScript
 	{
         /// <summary>
 		///     The GUID of this BepInEx plugin
 		/// </summary>
-        private const string GUID = Author + "-" + Name;
+        private const string GUID = AUTHOR + "-" + NAME;
 
         /// <summary>
 		///     The author of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string Author = "<#= Author #>";
+        private const string AUTHOR = "<#= AUTHOR #>";
 
         /// <summary>
 		///     The name of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string Name = "<#= Name #>";
+        private const string NAME = "<#= NAME #>";
 
         /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		private const string Version = "<#= Version #>";
+		private const string VERSION = "<#= VERSION #>";
 	}
 }

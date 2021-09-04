@@ -6,29 +6,29 @@
 
 using BepInEx;
 
-namespace BlankInEx
+namespace SosigScript
 {
-	[BepInPlugin(GUID, Name, Version)]
-	public sealed partial class Plugin
+	[BepInPlugin(GUID, NAME, VERSION)]
+	public sealed partial class SosigScript
 	{
         /// <summary>
 		///     The GUID of this BepInEx plugin
 		/// </summary>
-        private const string GUID = Author + "-" + Name;
+        private const string GUID = AUTHOR + "-" + NAME;
 
         /// <summary>
 		///     The author of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string Author = "POPULATE";
+        private const string AUTHOR = "Frityet";
 
         /// <summary>
 		///     The name of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string Name = "POPULATE";
+        private const string NAME = "SosigScript";
 
         /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		private const string Version = "..";
+		private const string VERSION = "..";
 	}
 }

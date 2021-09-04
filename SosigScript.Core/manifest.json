@@ -1,8 +1,8 @@
 {
-  "author": "POPULATE",
-  "name": "POPULATE",
+  "author": "Frityet",
+  "name": "SosigScript",
   "version_number": "DO_NOT_TOUCH",
-  "description": "POPULATE",
+  "description": "Lua scripting",
   "dependencies": [],
   "website_url": ""
 }
