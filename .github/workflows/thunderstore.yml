@@ -37,5 +37,5 @@ jobs:
       - name: Upload Package
         uses: actions/upload-artifact@v2
         with:
-          name: Thunderstore
+          name: SosigScript
           path: '*/thunderstore/out/*'
