@@ -38,7 +38,7 @@ namespace SosigScript
 		{
 			get
 			{
-				foreach (SosigScript script in _loadedScripts.Where(script => script.Name == index))
+				foreach (SosigScript script in _loadedScripts.Where(script => script.FileName == index))
 				{
 					return script;
 				}

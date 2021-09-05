@@ -22,7 +22,7 @@ namespace SosigScript
 
 			foreach (SosigScript script in ScriptLoader.LoadedScripts)
 			{
-				script.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Name}) - {msg}");
+				script.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Metadata.Name}) - {msg}");
 			}
 
 			Logger.LogInfo($"Loaded {ScriptLoader.LoadedScriptCount} scripts!");

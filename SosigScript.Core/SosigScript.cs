@@ -3,14 +3,25 @@ using MoonSharp.Interpreter;
 
 namespace SosigScript
 {
+	public struct Metadata
+	{
+		public string Name			{ get; set; }
+		public string Description	{ get; set; }
+		public string Version		{ get; set; }
+		public string Author		{ get; set; }
+
+	}
+
 	public class SosigScript
 	{
-		public string Name				{ get; }
+		public Metadata Metadata		{ get; }
+
+		public string FileName			{ get; }
 		public string Path				{ get; }
 
 		public ScriptOptions Options => _script.Options;
 
-		private Script _script;
+		private readonly Script _script;
 
 		public SosigScript(FileSystemInfo file) : this(file.FullName) {}
 
@@ -19,11 +30,21 @@ namespace SosigScript
 			if (!File.Exists(path))
 				throw new FileNotFoundException($"Could not find file {path}");
 			var file = new FileInfo(path);
-			Name = file.Name;
+			FileName = file.Name;
 			Path = file.FullName;
 
 			_script = new Script();
-			_script.LoadFile(Path, null, Name);
+			_script.LoadFile(Path, null, FileName);
+
+			Table metadata = _script.Globals.Get("ScriptInfo").Table;
+
+			Metadata = new Metadata
+			{
+				Name = metadata["Name"].ToString(),
+				Author = metadata["Author"].ToString(),
+				Description = metadata["Description"].ToString(),
+				Version = metadata["Version"].ToString()
+			};
 		}
 
 		public DynValue Execute(string funcName) => _script.Call(funcName);
