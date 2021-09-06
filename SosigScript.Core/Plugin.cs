@@ -20,12 +20,12 @@ namespace SosigScript
 		{
 			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
 
-			foreach (SosigScript script in ScriptLoader.LoadedScripts)
+			foreach (var script in ScriptLoader.LoadedResources)
 			{
-				script.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Metadata.Name}) - {msg}");
+				script.Value.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Key.Name}) - {msg}");
 			}
 
-			Logger.LogInfo($"Loaded {ScriptLoader.LoadedScriptCount} scripts!");
+			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResourceCount} scripts!");
 
 			ScriptLoader.Execute("Awake");
 		}

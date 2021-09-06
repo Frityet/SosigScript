@@ -29,6 +29,6 @@ namespace SosigScript
         /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		private const string VERSION = "0.0.0";
+		private const string VERSION = "..";
 	}
 }
