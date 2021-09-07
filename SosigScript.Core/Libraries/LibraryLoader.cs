@@ -1,30 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using SosigScript.Resources;
 
-namespace SosigScript.Core.Libraries
+namespace SosigScript.Libraries
 {
-	public class LibraryLoader : IResourceLoader<SosigScriptLibraryAttribute>
+	public class LibraryLoader : IResourceLoader<SosigScriptLibrary>
 	{
-		public IDictionary<ResourceMetadata, SosigScriptLibraryAttribute> LoadedResources { get; }
+		public IDictionary<ResourceMetadata, SosigScriptLibrary> LoadedResources => _loadedResources;
 		public int LoadedResourceCount { get; }
 
-		public void LoadResource(SosigScriptLibraryAttribute resource)
-		{
+		private Dictionary<ResourceMetadata, SosigScriptLibrary> _loadedResources;
+		private List<Assembly> _loadedAssemblies;
 
+		public LibraryLoader()
+		{
+			_loadedAssemblies = new List<Assembly>();
+			_loadedResources = new Dictionary<ResourceMetadata, SosigScriptLibrary>();
 		}
 
-		public void LoadResource(string path)
+		internal static void AddLibrary(SosigScriptLibrary library)
 		{
+			Plugin.LibraryLoader._loadedAssemblies.Add(library.Assembly);
+			Plugin.LibraryLoader._loadedResources.Add(library.LibraryInfo, library);
 
+			library.LibraryLoader = Plugin.LibraryLoader;
 		}
 
-		public SosigScriptLibraryAttribute this[string id]
+		public void LoadResource(SosigScriptLibrary resource)
 		{
-			get
-			{
-				throw new NotImplementedException();
-			}
+			_loadedAssemblies.Add(resource.Assembly);
+			_loadedResources.Add(resource.LibraryInfo, resource);
 		}
+
+		public SosigScriptLibrary this[string id] => _loadedResources.Values.Where(lib => lib.LibraryInfo.GUID == id).FirstOrDefault();
 	}
 }

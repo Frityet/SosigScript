@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SosigScript.Core
+namespace SosigScript.Resources
 {
 	public interface IResourceLoader<T>
 	{
@@ -9,7 +9,6 @@ namespace SosigScript.Core
 		public int LoadedResourceCount { get; }
 
 		public void LoadResource(T resource);
-		public void LoadResource(string path);
 
 		public T this[string id] { get; }
 	}

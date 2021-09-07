@@ -1,15 +1,20 @@
-﻿using System;
-using BepInEx;
-using MoonSharp.Interpreter;
+﻿using BepInEx;
 using SosigScript.Common;
+using SosigScript.Libraries;
 
 namespace SosigScript
 {
 	public sealed partial class Plugin : BaseUnityPlugin
 	{
 		public static ScriptLoader ScriptLoader { get; private set; }
+		public static LibraryLoader LibraryLoader { get; private set; }
 
 		private const string PLUGINS_DIR = "BepInEx/Plugins";
+
+		public static event Delegates.UnityEventDelegate OnAwake;
+		public static event Delegates.UnityEventDelegate OnStart;
+		public static event Delegates.UnityEventDelegate OnUpdate;
+		public static event Delegates.UnityEventDelegate OnFixedUpdate;
 
 		public Plugin()
 		{
@@ -19,6 +24,7 @@ namespace SosigScript
 		private void Awake()
 		{
 			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
+			LibraryLoader = new LibraryLoader();
 
 			foreach (var script in ScriptLoader.LoadedResources)
 			{
@@ -27,22 +33,22 @@ namespace SosigScript
 
 			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResourceCount} scripts!");
 
-			ScriptLoader.Execute("Awake");
+			OnAwake.Invoke();
 		}
 
 		private void Start()
 		{
-			ScriptLoader.Execute("Start");
+			OnStart.Invoke();
 		}
 
 		private void Update()
 		{
-			ScriptLoader.Execute("Update");
+			OnUpdate.Invoke();
 		}
 
 		private void FixedUpdate()
 		{
-			ScriptLoader.Execute("FixedUpdate");
+			OnFixedUpdate.Invoke();
 		}
 	}
 }

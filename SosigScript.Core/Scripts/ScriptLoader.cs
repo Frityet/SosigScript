@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using MoonSharp.Interpreter;
 using SosigScript.Common;
-using SosigScript.Core;
+using SosigScript.Resources;
 
 namespace SosigScript
 {
@@ -25,8 +25,7 @@ namespace SosigScript
 
 			foreach (DirectoryInfo dir in Directory.GetDirectories(searchDir).ToDirectories())
 			{
-				IEnumerable<FileInfo> files = dir.GetFiles().Where(file => file.Name.EndsWith($".{ext}"));
-				raw.AddRange(files);
+				raw.AddRange(dir.GetFiles().Where(file => file.Extension == ext));
 			}
 
 			_loadedResources = new Dictionary<ResourceMetadata, SosigScript>();
@@ -37,6 +36,11 @@ namespace SosigScript
 			{
 				_loadedResources.Add(script.ScriptMetadata, script);
 			}
+
+			Plugin.OnAwake += () => Execute("Awake");
+			Plugin.OnStart += () => Execute("Start");
+			Plugin.OnUpdate += () => Execute("Update");
+			Plugin.OnFixedUpdate += () => Execute("FixedUpdate");
 		}
 
 		public void LoadResource(SosigScript script) => _loadedResources.Add(script.ScriptMetadata, script);
