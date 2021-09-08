@@ -6,8 +6,8 @@ namespace SosigScript
 {
 	public sealed partial class Plugin : BaseUnityPlugin
 	{
-		public static ScriptLoader ScriptLoader { get; private set; }
-		public static LibraryLoader LibraryLoader { get; private set; }
+		public static ScriptLoader? ScriptLoader { get; private set; }
+		public static LibraryLoader? LibraryLoader { get; private set; }
 
 		private const string PLUGINS_DIR = "BepInEx/Plugins";
 
@@ -19,14 +19,15 @@ namespace SosigScript
 		public Plugin()
 		{
 			Logger.LogInfo("Started SosigScript");
+
+			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
+			LibraryLoader = new LibraryLoader();
 		}
 
 		private void Awake()
 		{
-			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
-			LibraryLoader = new LibraryLoader();
 
-			foreach (var script in ScriptLoader.LoadedResources)
+			foreach (var script in ScriptLoader!.LoadedResources)
 			{
 				script.Value.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Key.Name}) - {msg}");
 			}

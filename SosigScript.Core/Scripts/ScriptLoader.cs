@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Interop;
 using SosigScript.Common;
 using SosigScript.Resources;
 
@@ -12,7 +13,7 @@ namespace SosigScript
 		public IDictionary<ResourceMetadata, SosigScript> LoadedResources => _loadedResources;
 		public int LoadedResourceCount => _loadedResources.Count;
 
-		private Dictionary<ResourceMetadata, SosigScript> _loadedResources;
+		private readonly Dictionary<ResourceMetadata, SosigScript> _loadedResources;
 
 		public ScriptLoader(string searchDir, string ext)
 		{
@@ -28,19 +29,25 @@ namespace SosigScript
 				raw.AddRange(dir.GetFiles().Where(file => file.Extension == ext));
 			}
 
-			_loadedResources = new Dictionary<ResourceMetadata, SosigScript>();
 
 			List<SosigScript> scripts = raw.Select(file => new SosigScript(file)).ToList();
 
+			_loadedResources = new Dictionary<ResourceMetadata, SosigScript>(scripts.Count);
+
 			foreach (SosigScript script in scripts)
 			{
+				if (_loadedResources.Keys.GUIDExists(script.ScriptMetadata.GUID))
+				{
+					throw new Exceptions.ResourceAlreadyLoadedException($"SosigScript {script.ScriptMetadata.GUID} is already loaded");
+				}
+
 				_loadedResources.Add(script.ScriptMetadata, script);
 			}
 
-			Plugin.OnAwake += () => Execute("Awake");
-			Plugin.OnStart += () => Execute("Start");
-			Plugin.OnUpdate += () => Execute("Update");
-			Plugin.OnFixedUpdate += () => Execute("FixedUpdate");
+			Plugin.OnAwake			+= () => Execute("Awake");
+			Plugin.OnStart			+= () => Execute("Start");
+			Plugin.OnUpdate			+= () => Execute("Update");
+			Plugin.OnFixedUpdate	+= () => Execute("FixedUpdate");
 		}
 
 		public void LoadResource(SosigScript script) => _loadedResources.Add(script.ScriptMetadata, script);
@@ -48,14 +55,28 @@ namespace SosigScript
 		public void LoadResource(string path)
 		{
 			var script = new SosigScript(path);
+
+			if (_loadedResources.Keys.GUIDExists(script.ScriptMetadata.GUID))
+			{
+				throw new Exceptions.ResourceAlreadyLoadedException($"SosigScript {script.ScriptMetadata.GUID} is already loaded");
+			}
+
 			_loadedResources.Add(script.ScriptMetadata, script);
+		}
+
+		public void AddObject(string name, object obj)
+		{
+			foreach (SosigScript script in _loadedResources.Values)
+			{
+				script.AddGlobal(name, obj);
+			}
 		}
 
 		public SosigScript this[string index]
 		{
 			get
 			{
-				foreach (SosigScript script in _loadedResources.Where(script => script.Key.File.Name == index).Select(pair => pair.Value))
+				foreach (SosigScript script in _loadedResources.Where(script => script.Key.GUID == index).Select(pair => pair.Value))
 				{
 					return script;
 				}

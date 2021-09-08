@@ -16,6 +16,7 @@ namespace ExampleSosigScriptLibrary
 					Name = "Test Library",
 					GUID = "sosigscript.testlib",
 					Author = "Frityet",
+					Dependencies = null,
 					Version = "1.0.0"
 				}
 			);

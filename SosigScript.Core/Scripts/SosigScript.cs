@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using MoonSharp.Interpreter;
@@ -20,12 +21,13 @@ namespace SosigScript
 
 				return new ResourceMetadata
 				{
-					Name		= metadata["Name"].ToString(),
-					GUID		= metadata["GUID"].ToString(),
-					Author		= metadata["Author"].ToString(),
-					Description = metadata["Description"].ToString(),
-					Version		= metadata["Version"].ToString(),
-					File		= _file
+					Name			= metadata.Get("Name").String,
+					GUID			= metadata.Get("GUID").String,
+					Author			= metadata.Get("Author").String,
+					Description		= metadata.Get("Description").String,
+					Version			= metadata.Get("Version").String,
+					Dependencies	= metadata.Get("Dependencies").Table.Values.AsObjects<string>().ToArray(),
+					File			= _file
 				};
 			}
 		}
@@ -41,10 +43,9 @@ namespace SosigScript
 			_script = new Script();
 			_script.LoadFile(file.FullName, null, file.Name);
 			_file = file;
-
 		}
 
-		public void AddGlobal(string name, object obj) => _script.Globals[name] = obj;
+		public void AddGlobal(string name, object obj) => _script.Globals[name] = DynValue.FromObject(_script, obj);
 
 
 		public DynValue Execute(string funcName) => _script.Call(funcName);

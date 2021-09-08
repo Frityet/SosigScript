@@ -23,6 +23,13 @@ namespace SosigScript.Libraries
 			LibraryLoader.AddLibrary(this);
 		}
 
-		public void RegisterObject(string name, object obj) => _loadedObjects.Add(name, obj);
+		public void RegisterObject(string name, object obj)
+		{
+			_loadedObjects.Add(name, obj);
+
+
+
+			Plugin.ScriptLoader!.AddObject(name, obj);
+		}
 	}
 }
