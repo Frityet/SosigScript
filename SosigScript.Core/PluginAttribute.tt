@@ -1,8 +1,8 @@
 <#@ template language="C#" hostspecific="true" #>
 <#@ output extension=".cs" #>
-<#@ parameter name="AUTHOR" type="System.String" #>
-<#@ parameter name="NAME" type="System.String" #>
-<#@ parameter name="VERSION" type="System.String" #>
+<#@ parameter name="AUTHOR { get; }" type="System.String" #>
+<#@ parameter name="NAME { get; }" type="System.String" #>
+<#@ parameter name="VERSION { get; }" type="System.String" #>
 // ------------------------------------------------------------
 // This C# file was generated from a T4 template file.
 // Edits to this file will be overwritten by subsequent builds.
@@ -19,21 +19,21 @@ namespace SosigScript
         /// <summary>
 		///     The GUID of this BepInEx plugin
 		/// </summary>
-        private const string GUID = AUTHOR + "-" + NAME;
+        public const string GUID = AUTHOR + "-" + NAME;
 
         /// <summary>
 		///     The author of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string AUTHOR = "<#= AUTHOR #>";
+        public const string AUTHOR = "<#= AUTHOR #>";
 
         /// <summary>
 		///     The name of this Thunderstore package and BepInEx plugin
 		/// </summary>
-        private const string NAME = "<#= NAME #>";
+        public const string NAME = "<#= NAME #>";
 
         /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		private const string VERSION = "<#= VERSION #>";
+		public const string VERSION = "<#= VERSION #>";
 	}
 }

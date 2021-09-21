@@ -3,6 +3,11 @@ using SosigScript.Resources;
 
 namespace ExampleSosigScriptLibrary
 {
+	public class TypeTest
+	{
+		public string Test;
+	}
+
 	public class ExampleLib
 	{
 		private SosigScriptLibrary Library;
@@ -24,6 +29,9 @@ namespace ExampleSosigScriptLibrary
 			var name = "Frityet";
 
 			Library.RegisterObject("Name", name);
+
+			Library.RegisterType<TypeTest>();
+			Library.RegisterObject("TestObj1", new TypeTest {Test = "Hello!"});
 		}
 	}
 }

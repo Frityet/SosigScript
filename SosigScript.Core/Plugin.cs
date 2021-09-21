@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Logging;
 using SosigScript.Common;
 using SosigScript.Libraries;
 
@@ -6,50 +7,54 @@ namespace SosigScript
 {
 	public sealed partial class Plugin : BaseUnityPlugin
 	{
-		public static ScriptLoader? ScriptLoader { get; private set; }
-		public static LibraryLoader? LibraryLoader { get; private set; }
-
 		private const string PLUGINS_DIR = "BepInEx/Plugins";
 
-		public static event Delegates.UnityEventDelegate OnAwake;
-		public static event Delegates.UnityEventDelegate OnStart;
-		public static event Delegates.UnityEventDelegate OnUpdate;
-		public static event Delegates.UnityEventDelegate OnFixedUpdate;
+		private BaseLibrary _baseLib;
 
 		public Plugin()
 		{
-			Logger.LogInfo("Started SosigScript");
+			base.Logger.LogInfo("Started SosigScript");
 
 			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
 			LibraryLoader = new LibraryLoader();
+			_baseLib = new BaseLibrary();
 		}
+
+		public static ScriptLoader?  ScriptLoader  { get; private set; }
+		public static LibraryLoader? LibraryLoader { get; private set; }
+
+		public new static ManualLogSource? Logger { get; private set; }
 
 		private void Awake()
 		{
+			Logger = base.Logger;
 
 			foreach (var script in ScriptLoader!.LoadedResources)
-			{
 				script.Value.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Key.Name}) - {msg}");
-			}
 
-			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResourceCount} scripts!");
+			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResources.Count} scripts!");
 
-			OnAwake.Invoke();
+			OnAwake!.Invoke();
 		}
 
 		private void Start()
 		{
-			OnStart.Invoke();
+			OnStart!.Invoke();
 		}
 
 		private void Update()
 		{
-			OnUpdate.Invoke();
+			OnUpdate!.Invoke();
 		}
 
 		private void FixedUpdate()
 		{
-			OnFixedUpdate.Invoke();
+			OnFixedUpdate!.Invoke();
 		}
+
+		public static event Delegates.UnityEventDelegate? OnAwake;
+		public static event Delegates.UnityEventDelegate? OnStart;
+		public static event Delegates.UnityEventDelegate? OnUpdate;
+		public static event Delegates.UnityEventDelegate? OnFixedUpdate;
 	}
 }
