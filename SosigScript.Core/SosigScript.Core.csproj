@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <MinVerTagPrefix>v</MinVerTagPrefix>
-    <PackageId>net.frityet.sosigscript</PackageId>
+    <PackageId>SosigScript</PackageId>
     <Title>SosigScript</Title>
     <Authors>Frityet</Authors>
     <Description>Easy Lua scripting to BepInEx</Description>
@@ -13,6 +13,8 @@
     <RepositoryUrl>https://github.com/Frityet/SosigScript</RepositoryUrl>
     <PackageTags>bepinex lua</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Frityet/SosigScript/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/Frityet/SosigScript/raw/main/SosigScriptIcon.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -82,9 +84,8 @@
   <Target Name="GenerateAttribute" AfterTargets="ReadManifest">
     <Exec Command="dotnet t4 'PluginAttribute.tt' -p=AUTHOR=$(_ManifestAuthor) -p=NAME=$(_ManifestName) -p=VERSION=$(_ManifestVersion)" />
   </Target>
-  
-  <!--
 
+  <!--
   <Target Name="GenerateManifest" AfterTargets="ReadManifest" Condition="'$(Configuration)' == 'Release' and '$(TargetFramework)' == 'NET35'">
     <MakeDir Directories="thunderstore/src;thunderstore/out" />
     <Exec Command="jq - -compact-output - -arg version '$(_ManifestVersion)' '.version_number = $version' 'manifest.json'" ConsoleToMSBuild="true">

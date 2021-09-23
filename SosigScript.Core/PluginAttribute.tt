@@ -1,8 +1,8 @@
 <#@ template language="C#" hostspecific="true" #>
 <#@ output extension=".cs" #>
-<#@ parameter name="AUTHOR { get; }" type="System.String" #>
-<#@ parameter name="NAME { get; }" type="System.String" #>
-<#@ parameter name="VERSION { get; }" type="System.String" #>
+<#@ parameter name="AUTHOR" type="System.String" #>
+<#@ parameter name="NAME" type="System.String" #>
+<#@ parameter name="VERSION" type="System.String" #>
 // ------------------------------------------------------------
 // This C# file was generated from a T4 template file.
 // Edits to this file will be overwritten by subsequent builds.

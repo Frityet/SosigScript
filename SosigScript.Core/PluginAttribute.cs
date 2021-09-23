@@ -11,22 +11,22 @@ namespace SosigScript
 	[BepInPlugin(GUID, NAME, VERSION)]
 	public sealed partial class Plugin
 	{
-		/// <summary>
+        /// <summary>
 		///     The GUID of this BepInEx plugin
 		/// </summary>
-		public const string GUID = AUTHOR + "-" + NAME;
+        public const string GUID = AUTHOR + "-" + NAME;
 
-		/// <summary>
+        /// <summary>
 		///     The author of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		public const string AUTHOR = "Frityet";
+        public const string AUTHOR = "Frityet";
 
-		/// <summary>
+        /// <summary>
 		///     The name of this Thunderstore package and BepInEx plugin
 		/// </summary>
-		public const string NAME = "SosigScript";
+        public const string NAME = "SosigScript";
 
-		/// <summary>
+        /// <summary>
 		///     The version of this Thunderstore package and BepInEx plugin
 		/// </summary>
 		public const string VERSION = "..";

@@ -11,6 +11,11 @@ namespace SosigScript
 
 		private BaseLibrary _baseLib;
 
+		public static ScriptLoader?  ScriptLoader  { get; private set; }
+		public static LibraryLoader? LibraryLoader { get; private set; }
+
+		public new static ManualLogSource? Logger { get; private set; }
+
 		public Plugin()
 		{
 			base.Logger.LogInfo("Started SosigScript");
@@ -19,11 +24,6 @@ namespace SosigScript
 			LibraryLoader = new LibraryLoader();
 			_baseLib = new BaseLibrary();
 		}
-
-		public static ScriptLoader?  ScriptLoader  { get; private set; }
-		public static LibraryLoader? LibraryLoader { get; private set; }
-
-		public new static ManualLogSource? Logger { get; private set; }
 
 		private void Awake()
 		{
