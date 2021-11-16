@@ -5,7 +5,8 @@ using SosigScript.Libraries;
 
 namespace SosigScript
 {
-	public sealed partial class Plugin : BaseUnityPlugin
+	[BepInPlugin("net.frityet.sosigscript", "SosigScript", "1.0.0")]
+	public sealed class Plugin : BaseUnityPlugin
 	{
 		private const string PLUGINS_DIR = "BepInEx/Plugins";
 
