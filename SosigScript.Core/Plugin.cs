@@ -12,10 +12,15 @@ namespace SosigScript
 
 		private BaseLibrary _baseLib;
 
-		public static ScriptLoader?  ScriptLoader  { get; private set; }
-		public static LibraryLoader? LibraryLoader { get; private set; }
+		public static ScriptLoader 	ScriptLoader  { get; private set; }
+		public static LibraryLoader LibraryLoader { get; private set; }
 
 		public new static ManualLogSource? Logger { get; private set; }
+
+		public static event Delegates.UnityEventDelegate? OnAwake;
+		public static event Delegates.UnityEventDelegate? OnStart;
+		public static event Delegates.UnityEventDelegate? OnUpdate;
+		public static event Delegates.UnityEventDelegate? OnFixedUpdate;
 
 		public Plugin()
 		{
@@ -30,7 +35,7 @@ namespace SosigScript
 		{
 			Logger = base.Logger;
 
-			foreach (var script in ScriptLoader!.LoadedResources)
+			foreach (var script in ScriptLoader.LoadedResources)
 				script.Value.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Key.Name}) - {msg}");
 
 			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResources.Count} scripts!");
@@ -40,22 +45,17 @@ namespace SosigScript
 
 		private void Start()
 		{
-			OnStart!.Invoke();
+			OnStart?.Invoke();
 		}
 
 		private void Update()
 		{
-			OnUpdate!.Invoke();
+			OnUpdate?.Invoke();
 		}
 
 		private void FixedUpdate()
 		{
-			OnFixedUpdate!.Invoke();
+			OnFixedUpdate?.Invoke();
 		}
-
-		public static event Delegates.UnityEventDelegate? OnAwake;
-		public static event Delegates.UnityEventDelegate? OnStart;
-		public static event Delegates.UnityEventDelegate? OnUpdate;
-		public static event Delegates.UnityEventDelegate? OnFixedUpdate;
 	}
 }

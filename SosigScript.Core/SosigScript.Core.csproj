@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <RootNamespace>SosigSCript</RootNamespace>
+        <RootNamespace>SosigScript</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
