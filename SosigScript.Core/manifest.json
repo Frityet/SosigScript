@@ -1,0 +1,8 @@
+{
+  "author": "Frityet",
+  "name": "SosigScript",
+  "version_number": "DO_NOT_TOUCH",
+  "description": "Lua scripting for BepInEx games",
+  "dependencies": [],
+  "website_url": ""
+}
