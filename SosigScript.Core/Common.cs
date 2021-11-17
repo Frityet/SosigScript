@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SosigScript.Resources;
 
 namespace SosigScript.Common
 {
@@ -19,14 +18,6 @@ namespace SosigScript.Common
 		public static IEnumerable<DirectoryInfo> ToDirectories(this IEnumerable<string> dirs) =>
 			from dir in dirs where Directory.Exists(dir) select new DirectoryInfo(dir);
 
-		/// <summary>
-		///     Checks if a GUID already exists in a ResourceMetadata collection
-		/// </summary>
-		/// <param name="database">Collection to check for a GUID in</param>
-		/// <param name="guid">GUID to check</param>
-		/// <returns>Result of the search</returns>
-		public static bool GUIDExists(this IEnumerable<ResourceMetadata> database, string guid) =>
-			database.Any(metadata => metadata.GUID == guid);
 	}
 
 	/// <summary>

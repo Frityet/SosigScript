@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SosigScript.Core", "SosigScript.Core\SosigScript.Core.csproj", "{F3AB8030-20ED-4FA1-9A17-10D9DEFFBFA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SosigScript.ExampleLibrary", "SosigScript.ExampleLibrary\SosigScript.ExampleLibrary.csproj", "{53B980A2-6523-40A9-9CF0-51A008A9F31D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +19,9 @@ Global
 		{84083A36-0528-41EA-8DBB-C1D9E126AD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84083A36-0528-41EA-8DBB-C1D9E126AD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84083A36-0528-41EA-8DBB-C1D9E126AD3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B980A2-6523-40A9-9CF0-51A008A9F31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B980A2-6523-40A9-9CF0-51A008A9F31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B980A2-6523-40A9-9CF0-51A008A9F31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B980A2-6523-40A9-9CF0-51A008A9F31D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

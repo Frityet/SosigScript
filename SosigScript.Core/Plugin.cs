@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using SosigScript.Common;
-using SosigScript.Libraries;
 
 namespace SosigScript
 {
@@ -9,11 +8,6 @@ namespace SosigScript
 	public sealed class Plugin : BaseUnityPlugin
 	{
 		private const string PLUGINS_DIR = "BepInEx/Plugins";
-
-		private BaseLibrary _baseLib;
-
-		public static ScriptLoader 	ScriptLoader  { get; private set; }
-		public static LibraryLoader LibraryLoader { get; private set; }
 
 		public new static ManualLogSource? Logger { get; private set; }
 
@@ -26,19 +20,11 @@ namespace SosigScript
 		{
 			base.Logger.LogInfo("Started SosigScript");
 
-			ScriptLoader = new ScriptLoader(PLUGINS_DIR, "sslua");
-			LibraryLoader = new LibraryLoader();
-			_baseLib = new BaseLibrary();
 		}
 
 		private void Awake()
 		{
 			Logger = base.Logger;
-
-			foreach (var script in ScriptLoader.LoadedResources)
-				script.Value.Options.DebugPrint = msg => Logger.LogInfo($"(SosigScript - {script.Key.Name}) - {msg}");
-
-			Logger.LogInfo($"Loaded {ScriptLoader.LoadedResources.Count} scripts!");
 
 			OnAwake!.Invoke();
 		}

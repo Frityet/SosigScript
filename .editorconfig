@@ -7,11 +7,12 @@ trim_trailing_whitespace=true
 insert_final_newline=true
 
 [*.{txt,md,json,xml,yaml,csproj}]
-indent_style=space
-indent_size=2
+indent_style = space
+indent_size = 4
 
 [*.md]
-trim_trailing_whitespace=false
+trim_trailing_whitespace = true
 
 [{*.cs,*.tt}]
-indent_style=tab
+indent_style = space
+indent_size = 4
