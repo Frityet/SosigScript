@@ -4,23 +4,10 @@ interface IFunction<T>
     T Result { get; }
 }
 
-
-class FileInfoConstructor : IFunction<FileInfo>
-{
-    public string Path { private get; set; }
-    public FileInfo Result => new FileInfo(Path);
-}
-
 class Variable<T> : IFunction<T>
 {
     public T Value { private get; set; }
     public T Result => Value;
-}
-
-class ReadAllLines : IFunction<string[]>
-{
-   public FileInfo File { get; set; }
-   public string[] Result => File == null ? throw new NullReferenceException("trolling") : new [] { "lol" };
 }
 
 class ParametrelessFunctionInvoker<TReturn> : IFunction<TReturn>
@@ -38,40 +25,36 @@ class FunctionWithOneArgumentInvoker<TArg, TReturn> : IFunction<TReturn>
 
 class Constructor<TClass> : IFunction<TClass> where TClass : new()
 {
-    public TClass Object { private get; set; }
     public object[] Arguments { private get; set; }
-    public TClass Result
-    {
-        get
-        {
-            var ctor = new Variable<ConstructorInfo>
-            {
-                Value = new FunctionWithOneArgumentInvoker<Type[], ConstructorInfo>
-                {
-                    Function = new Variable<Type>
-                    {
-                        Value = new ParametrelessFunctionInvoker<Type>
+    public TClass Result => (TClass) new FunctionWithOneArgumentInvoker<object[], object>
                         {
-                            Function = Object.GetType
-                        }.Result
-                    }.Result.GetConstructor,
-                    FunctionArgument1 = new []
-                    {
-                        new Variable<Type>
-                        {
-                            Value = new ParametrelessFunctionInvoker<Type>
+                            Function = new Variable<ConstructorInfo>
                             {
-                                Function = Object.GetType
-                            }.Result
-                        }.Result
-                    }
-                }.Result
-            }.Result;
-
-            return new
-        }
-    }
+                                Value = new FunctionWithOneArgumentInvoker<Type[], ConstructorInfo>
+                                {
+                                    Function = new Variable<Type>
+                                    {
+                                        Value = new ParametrelessFunctionInvoker<Type>
+                                        {
+                                            Function = new Variable<Func<Type>> { Value = () => typeof(TClass) }.Result
+                                        }.Result
+                                    }.Result.GetConstructor,
+                                    FunctionArgument1 = new []
+                                    {
+                                        new Variable<Type>
+                                        {
+                                            Value = new ParametrelessFunctionInvoker<Type>
+                                            {
+                                                Function = new Variable<Func<Type>> { Value = () => typeof(TClass) }.Result
+                                            }.Result
+                                        }.Result
+                                    }
+                                }.Result
+                            }.Result.Invoke,
+                            FunctionArgument1 = Arguments
+                        }.Result;
 }
+
 
 class TestClass
 {
@@ -80,3 +63,4 @@ class TestClass
     float Float { get; set; }
 }
 
+var variable = new Variable<TestClass> { Value = new Constructor<TestClass>().Result };
