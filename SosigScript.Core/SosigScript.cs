@@ -19,5 +19,12 @@ namespace SosigScript
 		}
 
         public DynValue ExecuteFunction(string functionName, params object[] args) => _executioner.Call(functionName, args);
+        public void AddGlobal(string name, object obj) => _executioner.Globals[name] = obj;
+
+        public object this[string index]
+        {
+            get => _executioner.Globals[index];
+            set => _executioner.Globals[index] = value;
+        }
     }
 }

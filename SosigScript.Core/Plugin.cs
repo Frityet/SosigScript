@@ -19,7 +19,6 @@ namespace SosigScript
 		public Plugin()
 		{
 			base.Logger.LogInfo("Started SosigScript");
-
 		}
 
 		private void Awake()

@@ -7,7 +7,7 @@ namespace SosigScript
     public class ScriptLoader : ResourceLoader<SosigScript>
     {
         private const string SEARCH_DIRECTORY = "BepInEx/plugins";
-        private const string SCRIPT_EXTENTION = "sslua";
+        private const string SCRIPT_EXTENTION = "lua";
 
         public ScriptLoader() : base()
         {

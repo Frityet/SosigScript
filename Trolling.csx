@@ -1,4 +1,5 @@
 using System.Reflection;
+
 interface IFunction<T>
 {
     T Result { get; }
@@ -13,7 +14,7 @@ class Variable<T> : IFunction<T>
 class ParametrelessFunctionInvoker<TReturn> : IFunction<TReturn>
 {
     public Func<TReturn> Function { private get; set; }
-    public TReturn Result => Function.Invoke();
+    public TReturn Result => new Variable<Func<TReturn>> { Value = Function }.Result.Invoke();
 }
 
 class FunctionWithOneArgumentInvoker<TArg, TReturn> : IFunction<TReturn>
@@ -23,7 +24,7 @@ class FunctionWithOneArgumentInvoker<TArg, TReturn> : IFunction<TReturn>
     public TReturn Result => Function.Invoke(FunctionArgument1);
 }
 
-class Constructor<TClass> : IFunction<TClass> where TClass : new()
+class Constructor<TClass> : IFunction<TClass>
 {
     public object[] Arguments { private get; set; }
     public TClass Result => (TClass) new FunctionWithOneArgumentInvoker<object[], object>
@@ -63,4 +64,4 @@ class TestClass
     float Float { get; set; }
 }
 
-var variable = new Variable<TestClass> { Value = new Constructor<TestClass>().Result };
+var variable = new Variable<TestClass> { Value = new Constructor<TestClass>().Result }.Result;

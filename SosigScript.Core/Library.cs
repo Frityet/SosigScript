@@ -6,20 +6,21 @@ namespace SosigScript
 {
     public class Library : Resource
     {
-        private Dictionary<string, object> _registerObjects;
+        internal Dictionary<string, object> RegisteredObjects { get; private set; }
 
         public Library()
         {
-            _registerObjects = new Dictionary<string, object>();
+            RegisteredObjects = new Dictionary<string, object>();
+            LibraryLoader.RegisterLibrary(this);
         }
 
-        public void RegisterObject(object obj, string name)
+        public void RegisterObject(string name, object obj)
         {
             var type = obj.GetType();
             if (!UserData.IsTypeRegistered(type))
                 UserData.RegisterType(type);
 
-            _registerObjects.Add(name, obj);
+            RegisteredObjects.Add(name, obj);
         }
     }
 }
