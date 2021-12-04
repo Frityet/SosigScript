@@ -30,17 +30,17 @@ namespace SosigScript
 
 		private void Start()
 		{
-			OnStart?.Invoke();
+			OnStart!.Invoke();
 		}
 
 		private void Update()
 		{
-			OnUpdate?.Invoke();
+			OnUpdate!.Invoke();
 		}
 
 		private void FixedUpdate()
 		{
-			OnFixedUpdate?.Invoke();
+			OnFixedUpdate!.Invoke();
 		}
 	}
 }

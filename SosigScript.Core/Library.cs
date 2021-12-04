@@ -8,6 +8,9 @@ namespace SosigScript
     {
         internal Dictionary<string, object> RegisteredObjects { get; private set; }
 
+        ///
+        /// <summary>Creates a new SosigScript library and registers it</summary>
+        ///
         public Library()
         {
             RegisteredObjects = new Dictionary<string, object>();

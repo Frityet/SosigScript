@@ -44,12 +44,12 @@ namespace SosigScript
 
 		public ResourceMetadata(Table table, FileInfo file)
 		{
-			Name = (string) table["Name"];
-			GUID = (string) table["GUID"];
-			Author = (string) table["Author"];
-			Version = (string) table["Version"];
-			Dependencies = ((IList<string>)table["Version"]).ToArray();
-			File = file;
+			Name            = (string) table["name"];
+			GUID            = (string) table["guid"];
+			Author          = (string) table["author"];
+			Version         = (string) table["version"];
+			Dependencies    = (string[]) table["dependencies"];
+			File            = file;
 		}
 
 		public ResourceMetadata(string name, string guid, string author, string version, FileInfo file, params string[]? dependencies)

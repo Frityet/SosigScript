@@ -15,7 +15,7 @@ namespace SosigScript
 
 			_executioner = new Script();
 		    DynValue result = _executioner.LoadFile(path);
-			Metadata = new ResourceMetadata((Table)_executioner.Globals["ScriptInfo"], file);
+			Metadata = new ResourceMetadata((Table)_executioner.Globals["scriptinfo"], file);
 		}
 
         public DynValue ExecuteFunction(string functionName, params object[] args) => _executioner.Call(functionName, args);

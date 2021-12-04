@@ -1,6 +1,6 @@
-using System.IO;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.IO;
+using MoonSharp.Interpreter;
 
 namespace SosigScript
 {
@@ -17,32 +17,18 @@ namespace SosigScript
                 foreach (FileInfo file in dir.GetFiles())
                     if (file.Extension == SCRIPT_EXTENTION)
                         LoadedResources.Add(new SosigScript(file.FullName));
-
-            Plugin.OnStart += () =>
-            {
-                foreach (SosigScript script in LoadedResources)
-                {
-                    script.ExecuteFunction("Start");
-                }
-            };
-
-            Plugin.OnUpdate += () =>
-            {
-                foreach (SosigScript script in LoadedResources)
-                {
-                    script.ExecuteFunction("Update");
-                }
-            };
-
-            Plugin.OnFixedUpdate += () =>
-            {
-                foreach (SosigScript script in LoadedResources)
-                {
-                    script.ExecuteFunction("FixedUpdate");
-                }
-            };
         }
 
         public void LoadScript(string path) => LoadedResources.Add(new SosigScript(path));
+
+        public void RunScripts()
+        {
+            foreach (SosigScript script in LoadedResources)
+            {
+                script.ExecuteFunction("start");
+                Plugin.OnUpdate         += () => script.ExecuteFunction("update");
+                Plugin.OnFixedUpdate    += () => script.ExecuteFunction("fixedupdate");
+            }
+        }
     }
 }
