@@ -6,7 +6,7 @@ namespace SosigScript
     public class ResourceLoader<TResource> where TResource : Resource
     {
         public List<TResource> LoadedResources { get; private set; }
-        public static ResourceLoader<TResource> Instance => s_instance == null ? s_instance = new ResourceLoader<TResource>() : s_instance;
+        public static ResourceLoader<TResource> Instance => s_instance ??= new ResourceLoader<TResource>();
         private static ResourceLoader<TResource>? s_instance;
 
         public ResourceLoader()

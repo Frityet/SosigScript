@@ -7,6 +7,6 @@ ScriptInfo = {
 }
 
 --The awake function will be run as soon as this script starts
-function Awake()
+function awake()
     print("Hello, World!")
 end

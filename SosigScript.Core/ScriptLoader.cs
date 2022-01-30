@@ -7,15 +7,15 @@ namespace SosigScript
     public class ScriptLoader : ResourceLoader<SosigScript>
     {
         private const string SEARCH_DIRECTORY = "BepInEx/plugins";
-        private const string SCRIPT_EXTENTION = "lua";
+        private const string SCRIPT_EXTENSION = "lua";
 
-        public ScriptLoader() : base()
+        public ScriptLoader()
         {
             var searchdir = new DirectoryInfo(SEARCH_DIRECTORY);
 
             foreach (DirectoryInfo dir in searchdir.GetDirectories())
                 foreach (FileInfo file in dir.GetFiles())
-                    if (file.Extension == SCRIPT_EXTENTION)
+                    if (file.Extension == SCRIPT_EXTENSION)
                         LoadedResources.Add(new SosigScript(file.FullName));
         }
 

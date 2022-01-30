@@ -8,7 +8,7 @@ namespace SosigScript
 	/// <summary>
 	///     Information about a resource
 	/// </summary>
-	public struct ResourceMetadata
+	public class ResourceMetadata
 	{
 	    /// <summary>
 	    ///     Name of the resource
@@ -61,5 +61,9 @@ namespace SosigScript
 			File = file;
 			Dependencies = dependencies;
 		}
+
+        public ResourceMetadata()
+        {
+        }
 	}
 }

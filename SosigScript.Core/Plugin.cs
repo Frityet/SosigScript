@@ -15,7 +15,6 @@ namespace SosigScript
 		public static event Delegates.UnityEventDelegate? OnStart;
 		public static event Delegates.UnityEventDelegate? OnUpdate;
 		public static event Delegates.UnityEventDelegate? OnFixedUpdate;
-
 		public Plugin()
 		{
 			base.Logger.LogInfo("Started SosigScript");
@@ -25,13 +24,15 @@ namespace SosigScript
 		{
 			Logger = base.Logger;
 
+            ((LibraryLoader)LibraryLoader.Instance).LoadAllLibraries();
+
 			OnAwake!.Invoke();
 		}
 
 		private void Start()
 		{
 			OnStart!.Invoke();
-		}
+        }
 
 		private void Update()
 		{
